@@ -21,7 +21,7 @@ def make_html(input_path, output_path=None):
 
 
 if __name__ == '__main__':
-    make_html('E:\\自媒体\\百家\\1转化\\4','D:\\apache-tomcat-9.0.12\\webapps\\html\\红楼\\html')
+    make_html('E:\\自媒体\\百家\\1转化\\4', 'E:\\PythonProject\\baijia\\html\\红楼')
     exit()
     # for path in os.listdir('E:\\自媒体\\百家\\2018-10-29'):
     #     make_html('E:\\自媒体\\百家\\2018-10-29\\' + path)
