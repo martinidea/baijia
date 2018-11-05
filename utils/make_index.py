@@ -26,16 +26,16 @@ def make_all():
 
 
 def make_page_html():
-    with open('../html/pages.html', 'w', encoding="utf-8") as page_html:
+    with open('../index.html', 'w', encoding="utf-8") as page_html:
         page_html.writelines(
-            '<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>百家号文章</title></head><body>')
-        content = ['<a href=\"' + a + '/index.html\"  target=\"_blank\">' + a + '</a></br>\n' for a in get_pages()]
+            '<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>百家号文章</title></head><body><h1>百家号</h1>')
+        content = ['<a href=\"html/' + a + '/index.html\"  target=\"_blank\">' + a + '</a></br>\n' for a in get_pages()]
         page_html.writelines(content)
         get_pages()
 
 
 if __name__ == '__main__':
     make_page_html()
-    # make_all()
+    make_all()
     exit()
     # print(get_html_in_page('../html/李华华说花草/html'))
