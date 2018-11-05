@@ -2,7 +2,15 @@ import os
 
 
 def get_html_in_page(page):
-    return [path for path in os.listdir(page) if path.endswith(".html") and not path == 'index.html']
+    paths = [path for path in os.listdir(page) if path.endswith(".html") and not path == 'index.html']
+    for path in paths:
+        with open(page + '/' + path) as f:
+            xx = f.readlines()
+            f.close()
+            with open(page + '/' + path, 'w', encoding="utf-8") as ff:
+                ff.writelines(xx)
+                ff.close()
+    return paths
 
 
 def make_index(page):
@@ -28,9 +36,10 @@ def make_all():
 def make_page_html():
     with open('../index.html', 'w', encoding="utf-8") as page_html:
         page_html.writelines(
-            '<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>百家号文章</title></head><body><h1>百家号</h1>')
+            '<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>百家号文章</title></head><body><h1>百家号</h1>\n')
         content = ['<a href=\"html/' + a + '/index.html\"  target=\"_blank\">' + a + '</a></br>\n' for a in get_pages()]
         page_html.writelines(content)
+        page_html.writelines("</body></html>")
         get_pages()
 
 
