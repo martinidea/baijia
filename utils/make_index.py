@@ -9,6 +9,8 @@ def get_html_in_page(page):
                 for path in paths:
                     with open(page + '/' + path) as f:
                         xx = f.readlines()
+                        # xx.replace('<o:p>&nbsp;</o:p>','')
+                        # 去空行
                         f.close()
                         with open(page + '/' + path, 'w', encoding="utf-8") as ff:
                             ff.writelines(xx)
@@ -16,12 +18,13 @@ def get_html_in_page(page):
     return paths
 
 
+# 写各二级目录下面的链接
 def make_index(page):
     with open(page + "\\index.html", "w", encoding="utf-8") as index_html:
         index_html.writelines(
             """<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>{0}</title></head>\n<body>\n""".format(
                 os.path.split(page)[-1]))
-        content = ['<a href=\"' + a + '\">' + a + '</a></br>\n' for a in get_html_in_page(page)]
+        content = ['<a href=\"' + a + '\">' + a.replace('.html', '') + '</a></br>\n' for a in get_html_in_page(page)]
         index_html.writelines(content)
         index_html.writelines("</body></html>")
         index_html.close()
@@ -40,7 +43,8 @@ def make_page_html():
     with open('../index.html', 'w', encoding="utf-8") as page_html:
         page_html.writelines(
             '<!DOCTYPE html><html lang="zh"><head><meta charset="UTF-8"><title>百家号文章</title></head><body><h1>百家号</h1>\n')
-        content = ['<a href=\"html/' + a + '/index.html\">' + a + '</a></br>\n' for a in get_pages()]
+        content = ['<a href=\"html/' + a + '/index.html\">' + a.replace('.html', '') + '</a></br>\n' for a in
+                   get_pages()]
         page_html.writelines(content)
         page_html.writelines("</body></html>")
         get_pages()
