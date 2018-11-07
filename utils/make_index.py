@@ -5,16 +5,18 @@ def get_html_in_page(page):
     paths = [path for path in os.listdir(page) if path.endswith(".html") and not path == 'index.html']
     for path in paths:
         with open(page + '/' + path, 'rb') as ff:
-            if not chardet.detect(ff.read())['encoding'] == 'utf-8':
+            if not chardet.detect(ff.read())['encoding'] == 'utf-8' and chardet.detect(ff.read())['encoding']:
+                print(ff.name)
+                print(chardet.detect(ff.read())['encoding'])
+                ff.close()
                 for path in paths:
-                    with open(page + '/' + path) as f:
+                    with open(page + '/' + path, 'r') as f:
                         xx = f.readlines()
                         # xx.replace('<o:p>&nbsp;</o:p>','')
                         # 去空行
                         f.close()
                         with open(page + '/' + path, 'w', encoding="utf-8") as ff:
                             ff.writelines(xx)
-                            ff.close()
     return paths
 
 
